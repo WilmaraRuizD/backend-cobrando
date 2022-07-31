@@ -1,0 +1,37 @@
+use basededatos1
+
+db.usuario.insert({
+nombre_usuario: 'Frank_blog',
+nombre: 'Frank',
+cuenta_twitter: 'Frank_USA',
+descripcion: 'blogger aficionado',
+telefono1: ['73128989', '111111111'],
+direccion: {
+calle: 'Av. de los Castros',
+numero: '2256',
+cp: '39005',
+ciudad: 'Santander'
+}
+}
+db.usuario.insert({
+nombre_usuario: 'Peter_blog',
+nombre: 'Peter',
+cuenta_twitter: 'Pete',
+descripcion: 'blogger aficionado',
+telefono1: ['808080', '4323424'],
+direccion: {
+calle: 'Av. de los Castros',
+numero: '289s',
+cp: '39005',
+ciudad: 'Santander'
+}
+})
+
+db.usuario.find({nombre_usuario: “Frank_blog”})
+db.usuario.find({nombre: “Peter”})
+db.usuario.find({cp: “39005”})
+db.usuario.find({$or: [{telefono1: “111111111”}, {telefono2: “111111111”},
+… ]})
+
+db.usuario.find({cp: {$gte: “39005”}},{nombre_usuario: 1,
+cuenta_twitter: 1, _id:0})
