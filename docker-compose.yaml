@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql-dbnode
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "3010-3306"
+    volumes:
+      - db:/.data/db:/var/lib/mysql
+    restart: always
+    environment:
+      - DB_ROOT_PASSWORD=secret
+      - DB_DATABASE=company
+      - DB_PASSWORD=secret
+      - DB_USER=wilmaraRuiz
+    
+  app:
+    depends_on:
+      - db
+    image: wilmaraRuiz/node.js-mysql-app  
+    build: ./bezkoder-app
+    links:
+    - db
+    ports:
+    - "3000:3000"
+    restart: always
+    environment:
+       MYSQL_HOST: DB
+       MYSQL_USER: wilmaraRuiz
+       MYSQL_PASSWORS: secret
+       MYSQL_DB: company
